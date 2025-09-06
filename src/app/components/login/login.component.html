@@ -1,1 +1,9 @@
-<p>login works!</p>
+<div class="login-container">
+  <h2>🎵 Login al Dashboard</h2>
+  <div class="login-form">
+    <input type="text" [(ngModel)]="username" placeholder="Username">
+    <input type="password" [(ngModel)]="password" placeholder="Password">
+    <button (click)="login()">Login</button>
+  </div>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</div>

@@ -1,11 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Playlist, PlaylistService, Song } from '../../services/playlist.service';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  playlists: Playlist[] = [];
+  selectedPlaylist?: Playlist;
+  searchTerm: string = '';
 
+  constructor(private playlistService: PlaylistService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.loadPlaylists();
+  }
+
+  loadPlaylists() {
+    this.playlistService.getAll().subscribe(data => {
+      this.playlists = data;
+    });
+  }
+
+  selectPlaylist(name: string) {
+  if (this.selectedPlaylist?.nombre === name) {
+    this.selectedPlaylist = undefined;
+    return;
+  }
+
+  this.playlistService.getOne(name).subscribe(data => {
+    this.selectedPlaylist = data;
+  });
+  }
+
+  searchPlaylists() {
+  if (!this.searchTerm.trim()) {
+    this.loadPlaylists();
+    return;
+  }
+  this.playlistService.searchByName(this.searchTerm).subscribe(data => {
+    this.playlists = data;
+  });
+}
+
+  createPlaylist(newPlaylist: Playlist) {
+    this.playlistService.create(newPlaylist).subscribe(() => {
+      this.loadPlaylists();
+    });
+  }
+
+  addSongToPlaylist(listName: string, song: Song) {
+    this.playlistService.addSong(listName, song).subscribe(() => {
+      this.selectPlaylist(listName);
+    });
+  }
+
+  deletePlaylist(name: string) {
+    this.playlistService.delete(name).subscribe(() => {
+      this.loadPlaylists();
+      if (this.selectedPlaylist?.nombre === name) {
+        this.selectedPlaylist = undefined;
+      }
+    });
+  }
+
+  logout() {
+    // Token en localStorage:
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }

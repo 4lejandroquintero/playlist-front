@@ -1,1 +1,74 @@
-<p>dashboard works!</p>
+<div class="container">
+  <div class="header">
+  <h1>Dashboard de Playlists 🎵</h1>
+  <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+</div>
+
+  <div class="search-playlist">
+  <input type="text" placeholder="Buscar playlist..." [(ngModel)]="searchTerm" />
+  <button (click)="searchPlaylists()">Buscar</button>
+</div>
+
+  <!-- Crear nueva playlist -->
+  <div class="new-playlist">
+    <h2>Crear nueva Playlist</h2>
+    <input type="text" placeholder="Nombre" #playlistName>
+    <input type="text" placeholder="Descripción" #playlistDesc>
+    <button (click)="
+      createPlaylist({nombre: playlistName.value, descripcion: playlistDesc.value, canciones: []});
+      playlistName.value=''; playlistDesc.value=''
+    ">Crear</button>
+  </div>
+
+  <hr>
+
+  <!-- Lista de playlists -->
+  <div class="playlists">
+    <h2>Playlists</h2>
+    <ul>
+      <li *ngFor="let pl of playlists">
+        <span (click)="selectPlaylist(pl.nombre)" style="cursor:pointer;">{{ pl.nombre }}</span>
+        <button (click)="deletePlaylist(pl.nombre)">Borrar</button>
+      </li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- Detalle de la playlist seleccionada -->
+  <div *ngIf="selectedPlaylist" class="selected-playlist">
+    <h2>Playlist: {{ selectedPlaylist.nombre }}</h2>
+    <p>{{ selectedPlaylist.descripcion }}</p>
+
+    <!-- Añadir canción -->
+    <div class="add-song">
+      <h3>Añadir Canción</h3>
+      <input type="text" placeholder="Título" #songTitle>
+      <input type="text" placeholder="Artista" #songArtist>
+      <input type="text" placeholder="Álbum" #songAlbum>
+      <input type="text" placeholder="Año" #songYear>
+      <input type="text" placeholder="Género" #songGenre>
+      <button (click)="
+        addSongToPlaylist(selectedPlaylist.nombre, {
+          titulo: songTitle.value,
+          artista: songArtist.value,
+          album: songAlbum.value,
+          anno: songYear.value,
+          genero: songGenre.value
+        });
+        songTitle.value=''; songArtist.value=''; songAlbum.value=''; songYear.value=''; songGenre.value=''
+      ">Agregar</button>
+    </div>
+
+    <!-- Canciones -->
+    <div class="songs">
+      <h3>Canciones</h3>
+      <ul>
+        <li *ngFor="let song of selectedPlaylist.canciones">
+          {{ song.titulo }} - {{ song.artista }} ({{ song.anno }}) [{{ song.genero }}]
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

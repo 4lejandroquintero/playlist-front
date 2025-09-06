@@ -1,0 +1,118 @@
+/* dashboard.component.css */
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #4a90e2;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #4a90e2;
+  padding-bottom: 5px;
+}
+
+h3 {
+  color: #555;
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  padding: 8px 10px;
+  margin: 5px 5px 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: calc(50% - 10px);
+}
+
+button {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #357ab8;
+}
+
+.new-playlist, .add-song {
+  background: #f5f8ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.playlists ul, .songs ul {
+  list-style: none;
+  padding: 0;
+}
+
+.playlists li, .songs li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playlists li span {
+  font-weight: 500;
+  color: #4a90e2;
+}
+
+.playlists li button {
+  background: #e74c3c;
+  padding: 5px 10px;
+}
+
+.playlists li button:hover {
+  background: #c0392b;
+}
+
+.selected-playlist {
+  background: #f0f4f8;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+hr {
+  margin: 25px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
