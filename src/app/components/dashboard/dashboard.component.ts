@@ -51,14 +51,28 @@ export class DashboardComponent implements OnInit {
 }
 
   createPlaylist(newPlaylist: Playlist) {
-    this.playlistService.create(newPlaylist).subscribe(() => {
-      this.loadPlaylists();
+    this.playlistService.create(newPlaylist).subscribe({
+      next: () => this.loadPlaylists(),
+      error: (err) => {
+        if (err.status === 400 || err.status === 409) {
+          alert(err.error); // muestra el mensaje que envía el backend
+        } else {
+          alert('Error inesperado al crear la playlist');
+        }
+      }
     });
   }
 
   addSongToPlaylist(listName: string, song: Song) {
-    this.playlistService.addSong(listName, song).subscribe(() => {
-      this.selectPlaylist(listName);
+    this.playlistService.addSong(listName, song).subscribe({
+      next: () => this.selectPlaylist(listName),
+      error: (err) => {
+        if (err.status === 409 || err.status === 404) {
+          alert(err.error);
+        } else {
+          alert('Error inesperado al agregar la canción');
+        }
+      }
     });
   }
 
