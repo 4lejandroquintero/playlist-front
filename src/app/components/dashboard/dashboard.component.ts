@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
       next: () => this.loadPlaylists(),
       error: (err) => {
         if (err.status === 400 || err.status === 409) {
-          alert(err.error); // muestra el mensaje que envía el backend
+          alert(err.error);
         } else {
           alert('Error inesperado al crear la playlist');
         }

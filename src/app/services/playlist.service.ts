@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service'; // importamos AuthService
+import { AuthService } from './auth.service';
 
 export interface Song {
   titulo: string;
